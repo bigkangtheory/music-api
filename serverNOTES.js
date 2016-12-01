@@ -4,8 +4,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const sequelizeConnection = require('./db');
-// const Song = require('./models/song-model');
-// const Artist = require('./models/artist-model');
+const Song = require('./models/song-model');
+const Artist = require('./models/artist-model');
 
 //body-parser middleware adds .body property to req (if we make a POST AJAX request with some data attached, that data will be accessible as req.body)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +22,13 @@ app.get('/view/youtube-search', (req, res) => {res.sendFile(path.join(__dirname,
 //////////
 // YOUR CODE HERE:
 //////////
-
-
-app.use('/api', require('./routers'))
+//1. make routes to get songs
+app.get('/api/songs', (req, res) => {
+	Song.findAll({
+  	where: {
+    title: 'Swim Good'
+    //can put whatever you want ie: youtubeurl:
+    //DOCUMENTATION: models, usage, data retrieval and finding
+  	}
+	});
+})
